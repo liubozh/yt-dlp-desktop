@@ -1,5 +1,3 @@
-import { createRoot } from 'react-dom/client';
-
 export default function App() {
   return (
     <div>
@@ -8,6 +6,3 @@ export default function App() {
     </div>
   );
 }
-
-const root = createRoot(document.getElementById('app'));
-root.render(<App />);
