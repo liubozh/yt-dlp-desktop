@@ -1,10 +1,10 @@
 import Layout from './layout';
-import { AppSidebar } from './components/app-sidebar';
+import Home from './components/home';
 
 export default function App() {
   return (
     <Layout>
-      <AppSidebar />
+      <Home />
     </Layout>
   );
 }
