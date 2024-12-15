@@ -9,6 +9,7 @@ export default function Home() {
   const onSubmit = async () => {
     try {
       setLoading(true);
+      window.electronAPI.setTitle('Downloading...');
     } catch (e) {
       console.error(e);
     } finally {
