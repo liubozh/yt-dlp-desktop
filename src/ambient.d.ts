@@ -1,6 +1,4 @@
-export interface IElectronAPI {
-  setTitle: (title: string) => void;
-}
+import { IElectronAPI } from './interfaces';
 
 declare global {
   interface Window {

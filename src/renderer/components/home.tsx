@@ -1,19 +1,38 @@
 import { useState } from 'react';
 import { Cog } from 'lucide-react';
 import { Textarea } from './ui/textarea';
+import { Button } from './ui/button';
 
 export default function Home() {
-  const [text, setText] = useState('');
+  const [text, setText] = useState(
+    'https://www.youtube.com/watch?v=X_Hw9P1iZfQ',
+  );
   const [loading, setLoading] = useState(false);
 
   const onSubmit = async () => {
     try {
       setLoading(true);
-      window.electronAPI.setTitle('Downloading...');
+      window.electronAPI.runCommand({
+        command: 'yt-dlp',
+        args: [
+          '--cookies-from-browser',
+          'chrome',
+          '-f',
+          '399',
+          '-r',
+          '5k',
+          text,
+        ],
+      });
+      window.electronAPI.onCommandOutput((output) => {
+        console.log(output);
+      });
+      window.electronAPI.onCommandStopped((data) => {
+        console.log(data);
+        setLoading(false);
+      });
     } catch (e) {
       console.error(e);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -64,11 +83,18 @@ export default function Home() {
                   <span>Processing...</span>
                 </>
               ) : (
-                'Search'
+                'run yt-dlp'
               )}
             </span>
           </button>
         </form>
+        <Button
+          className="mt-6 w-full h-12 flex justify-center items-center rounded-lg text-lg font-medium transition-all duration-200 
+              bg-[#E50914] text-white hover:bg-[#F40612] active:bg-[#B2070E]"
+          onClick={() => window.electronAPI.killCommand()}
+        >
+          kill yt-dlp
+        </Button>
       </div>
     </div>
   );
