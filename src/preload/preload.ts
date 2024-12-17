@@ -21,7 +21,9 @@ contextBridge.exposeInMainWorld('electronAPI', {
     });
   },
 
-  onCommandStopped(callback: (data: { code: number; signal: string }) => void) {
+  onCommandStopped(
+    callback: (data: { code: number | null; signal: string | null }) => void,
+  ) {
     ipcRenderer.removeAllListeners(IpcEvents.COMMAND_STOPPED);
     ipcRenderer.on(
       IpcEvents.COMMAND_STOPPED,

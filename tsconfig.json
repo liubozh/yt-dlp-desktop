@@ -15,7 +15,8 @@
       "@/*": ["./src/renderer/*"],
       "*": ["node_modules/*"]
     },
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "strictNullChecks": true
   },
   "include": ["src/**/*"]
 }
