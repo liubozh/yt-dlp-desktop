@@ -5,3 +5,5 @@ export const isRunningAtom = atom(false);
 export const downloadUrlAtom = atom(
   'https://www.youtube.com/watch?v=X_Hw9P1iZfQ',
 );
+
+export const outputsAtom = atom<string[]>([]);

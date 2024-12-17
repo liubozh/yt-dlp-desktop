@@ -2,11 +2,13 @@ import { Cog } from 'lucide-react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { useAtom } from 'jotai';
-import { isRunningAtom, downloadUrlAtom } from '../atoms';
+import { isRunningAtom, downloadUrlAtom, outputsAtom } from '../atoms';
+import { ScrollArea } from './ui/scroll-area';
 
 export default function Home() {
   const [isRunning, setIsRunning] = useAtom(isRunningAtom);
   const [downloadUrl, setDownloadUrl] = useAtom(downloadUrlAtom);
+  const [outputs, setOutputs] = useAtom(outputsAtom);
 
   const onSubmit = async () => {
     try {
@@ -24,14 +26,15 @@ export default function Home() {
         ],
       });
       window.electronAPI.onCommandOutput((output) => {
-        console.log(output);
+        setOutputs((prev) => [...prev, output]);
       });
       window.electronAPI.onCommandStopped((data) => {
-        console.log(data);
+        setOutputs((prev) => [...prev, JSON.stringify(data)]);
         setIsRunning(false);
       });
     } catch (e) {
       console.error(e);
+      setIsRunning(false);
     }
   };
 
@@ -78,6 +81,18 @@ export default function Home() {
             kill yt-dlp
           </Button>
         </div>
+        <ScrollArea className="h-72 mt-8 w-full max-w-4xl mx-auto bg-gray-100 p-4 rounded-lg shadow-md">
+          {outputs.map((output, index) => (
+            <div key={index} className="text-left text-sm text-gray-800 mb-2">
+              {output}
+            </div>
+          ))}
+          <div
+            ref={(el) => {
+              if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }}
+          />
+        </ScrollArea>
       </div>
     </div>
   );
