@@ -1,5 +1,5 @@
 import { Cog } from 'lucide-react';
-import { Textarea } from './ui/textarea';
+import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { useAtom } from 'jotai';
 import { isRunningAtom, downloadUrlAtom } from '../atoms';
@@ -17,9 +17,9 @@ export default function Home() {
           '--cookies-from-browser',
           'chrome',
           '-f',
-          '399',
-          '-r',
-          '5k',
+          'bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4] / bv*+ba/b',
+          '-o',
+          '~/yt-dlp-desktop/%(title)s [%(id)s].%(ext)s',
           downloadUrl,
         ],
       });
@@ -36,36 +36,32 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f5f5f1] flex flex-col items-center">
-      <div className="container px-4 sm:px-6 lg:px-8 py-16 lg:py-32 max-w-4xl mx-auto">
-        <h1 className="text-4xl sm:text-5xl font-bold text-center mb-8">
-          <span className="bg-gradient-to-r from-[#E50914] to-[#FF5722] text-transparent bg-clip-text">
-            Search and Download
-          </span>
+    <div className="min-h-screen bg-white flex flex-col items-center justify-center">
+      <div className="container px-4 py-16 max-w-4xl mx-auto text-center">
+        <h1 className="text-4xl font-bold mb-8 text-red-600">
+          Search and Download
         </h1>
 
-        <div className="relative">
-          <Textarea
+        <div className="flex items-center justify-center space-x-2">
+          <Input
             id="text"
             name="text"
             value={downloadUrl}
-            minLength={1}
             onChange={(e) => setDownloadUrl(e.target.value)}
-            className="w-full px-4 py-3 bg-[#ffffff] text-gray-900 border-2 border-[#cccccc] rounded-lg focus:border-[#E50914] focus:ring-1 focus:ring-[#E50914] transition-all duration-200 font-mono text-sm placeholder-gray-400"
+            className="px-4 py-2 border rounded-lg"
+            style={{ width: '300px' }}
           />
-        </div>
-        <Button
-          disabled={isRunning || downloadUrl.length <= 0}
-          className={`mt-6 w-full h-12 flex justify-center items-center rounded-lg text-lg font-medium transition-all duration-200
+          <Button
+            disabled={isRunning || downloadUrl.length <= 0}
+            className={`px-4 py-2 rounded-lg text-lg font-medium transition-all duration-200
               ${
                 downloadUrl.length <= 0
                   ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                  : 'bg-[#E50914] text-white hover:bg-[#F40612] active:bg-[#B2070E]'
+                  : 'bg-red-600 text-white hover:bg-red-700 active:bg-red-800'
               } 
               ${isRunning ? 'animate-pulse' : ''}`}
-          onClick={onSubmit}
-        >
-          <span className="flex items-center gap-2">
+            onClick={onSubmit}
+          >
             {isRunning ? (
               <>
                 <Cog className="w-5 h-5 animate-spin" />
@@ -74,15 +70,14 @@ export default function Home() {
             ) : (
               'run yt-dlp'
             )}
-          </span>
-        </Button>
-        <Button
-          className="mt-6 w-full h-12 flex justify-center items-center rounded-lg text-lg font-medium transition-all duration-200 
-              bg-[#E50914] text-white hover:bg-[#F40612] active:bg-[#B2070E]"
-          onClick={() => window.electronAPI.killCommand()}
-        >
-          kill yt-dlp
-        </Button>
+          </Button>
+          <Button
+            className="px-4 py-2 rounded-lg text-lg font-medium transition-all duration-200 bg-red-600 text-white hover:bg-red-700 active:bg-red-800"
+            onClick={() => window.electronAPI.killCommand()}
+          >
+            kill yt-dlp
+          </Button>
+        </div>
       </div>
     </div>
   );
