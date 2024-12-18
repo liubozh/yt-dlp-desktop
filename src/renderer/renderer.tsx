@@ -35,5 +35,10 @@ console.log(
   '👋 This message is being logged by "renderer.js", included via webpack',
 );
 
-const root = createRoot(document.getElementById('app'));
-root.render(<App />);
+const container = document.getElementById('app');
+if (container) {
+  const root = createRoot(container);
+  root.render(<App />);
+} else {
+  console.error('Failed to find the app container element.');
+}
