@@ -3,33 +3,51 @@
 
 import { contextBridge, ipcRenderer } from 'electron';
 import { IpcEvents } from '../ipc-events';
-import { RunCommandOptions } from '../interfaces';
 
-contextBridge.exposeInMainWorld('electronAPI', {
-  async runCommand(options: RunCommandOptions) {
-    await ipcRenderer.invoke(IpcEvents.RUN_COMMAND, options);
+contextBridge.exposeInMainWorld('downloadAPI', {
+  async loadMediaMetadata(options: string[]) {
+    return ipcRenderer.invoke(IpcEvents.LOAD_MEDIA_METADATA, options);
   },
 
-  killCommand() {
-    ipcRenderer.send(IpcEvents.KILL_COMMAND);
+  async download(options: string[]) {
+    await ipcRenderer.invoke(IpcEvents.DOWNLOAD, options);
   },
 
-  onCommandOutput(callback: (output: string) => void) {
-    ipcRenderer.removeAllListeners(IpcEvents.COMMAND_OUTPUT);
-    ipcRenderer.on(IpcEvents.COMMAND_OUTPUT, (_, output: string) => {
+  cancelDownload() {
+    ipcRenderer.send(IpcEvents.CANCEL_DOWNLOAD);
+  },
+
+  onDownloadOutput(callback: (output: string) => void) {
+    ipcRenderer.removeAllListeners(IpcEvents.DOWNLOAD_OUTPUT);
+    ipcRenderer.on(IpcEvents.DOWNLOAD_OUTPUT, (_, output: string) => {
       callback(output);
     });
   },
 
-  onCommandStopped(
+  onDownloadStopped(
     callback: (data: { code: number | null; signal: string | null }) => void,
   ) {
-    ipcRenderer.removeAllListeners(IpcEvents.COMMAND_STOPPED);
+    ipcRenderer.removeAllListeners(IpcEvents.DOWNLOAD_STOPPED);
     ipcRenderer.on(
-      IpcEvents.COMMAND_STOPPED,
+      IpcEvents.DOWNLOAD_STOPPED,
       (_, data: { code: number | null; signal: string | null }) => {
         callback(data);
       },
     );
   },
+  // async download(url: string) {
+  //   await ipcRenderer.invoke(IpcEvents.DOWNLOAD, url);
+  // },
+
+  // onDownloadProgress(callback: (progress: number) => void) {
+  //   ipcRenderer.removeAllListeners(IpcEvents.DOWNLOAD_PROGRESS);
+  //   ipcRenderer.on(IpcEvents.DOWNLOAD_PROGRESS, (_, progress: number) => {
+  //     callback(progress);
+  //   });
+  // },
+
+  // onDownloadStopped(callback: () => void) {
+  //   ipcRenderer.removeAllListeners(IpcEvents.DOWNLOAD_STOPPED);
+  //   ipcRenderer.on(IpcEvents.DOWNLOAD_STOPPED, callback);
+  // },
 });

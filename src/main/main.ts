@@ -6,7 +6,7 @@ import {
   WebContents,
 } from 'electron';
 import { IpcEvents } from '../ipc-events';
-import { RunCommandOptions } from '../interfaces';
+import { MediaMetadata } from '../interfaces';
 
 import { ChildProcess, spawn } from 'child_process';
 
@@ -45,14 +45,67 @@ const createWindow = (): void => {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   ipcMain.handle(
-    IpcEvents.RUN_COMMAND,
-    async (event: IpcMainEvent, options: RunCommandOptions) => {
-      console.log('Running command:', options.command, options.args);
+    IpcEvents.LOAD_MEDIA_METADATA,
+    async (event: IpcMainEvent, options: string[]): Promise<MediaMetadata> => {
+      return new Promise((resolve, reject) => {
+        const child = spawn('yt-dlp', options);
 
-      const child = spawn(options.command, options.args);
+        const outputChunks: Buffer[] = [];
+
+        const pushOutput = (data: string | Buffer) => {
+          if (data.toString().includes('WARNING:')) {
+            return;
+          }
+          outputChunks.push(Buffer.isBuffer(data) ? data : Buffer.from(data));
+        };
+
+        child.stdout?.on('data', pushOutput);
+        child.stderr?.on('data', pushOutput);
+
+        child.on('close', (code, signal) => {
+          const output = Buffer.concat(outputChunks).toString();
+          if (code === 0) {
+            const json = JSON.parse(output);
+            const type = json?._type;
+            switch (type) {
+              case 'video': {
+                const metadata: MediaMetadata = {
+                  type,
+                  id: json.id,
+                  title: json.title,
+                  thumbnail: json.thumbnail,
+                  description: json.description,
+                  originalUrl: json.original_url,
+                  duration: json.duration,
+                };
+                resolve(metadata);
+                break;
+              }
+              default:
+                break;
+            }
+
+            resolve(json);
+          } else {
+            console.error('Error loading metadata:', output);
+            reject(
+              new Error(
+                `Process exited with code ${code} and signal ${signal}`,
+              ),
+            );
+          }
+        });
+      });
+    },
+  );
+
+  ipcMain.handle(
+    IpcEvents.DOWNLOAD,
+    async (event: IpcMainEvent, options: string[]) => {
+      const child = spawn('yt-dlp', options);
 
       const pushOutput = (data: string | Buffer) => {
-        event.sender.send(IpcEvents.COMMAND_OUTPUT, data.toString());
+        event.sender.send(IpcEvents.DOWNLOAD_OUTPUT, data.toString());
       };
 
       child.stdout?.on('data', pushOutput);
@@ -63,7 +116,7 @@ app.whenReady().then(() => {
       child.on('close', async (code, signal) => {
         console.log('Command closed:', code, signal);
         runningProcesses.delete(event.sender);
-        event.sender.send(IpcEvents.COMMAND_STOPPED, {
+        event.sender.send(IpcEvents.DOWNLOAD_STOPPED, {
           code,
           signal,
         });
@@ -71,7 +124,7 @@ app.whenReady().then(() => {
     },
   );
 
-  ipcMain.on(IpcEvents.KILL_COMMAND, (event: IpcMainEvent) => {
+  ipcMain.on(IpcEvents.CANCEL_DOWNLOAD, (event: IpcMainEvent) => {
     const child = runningProcesses.get(event.sender);
     child?.kill();
     if (child) {

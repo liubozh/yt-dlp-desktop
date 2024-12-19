@@ -1,7 +1,7 @@
-import { IElectronAPI } from './interfaces';
+import { IDownloadAPI } from './interfaces';
 
 declare global {
   interface Window {
-    electronAPI: IElectronAPI;
+    downloadAPI: IDownloadAPI;
   }
 }

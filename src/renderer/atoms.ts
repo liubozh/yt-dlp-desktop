@@ -1,9 +1,9 @@
 import { atom } from 'jotai';
+import { MediaMetadata } from '../interfaces';
 
 export const isRunningAtom = atom(false);
+export const isLoadingMetadataAtom = atom(false);
+export const isDownloadingAtom = atom(false);
 
-export const downloadUrlAtom = atom(
-  'https://www.youtube.com/watch?v=X_Hw9P1iZfQ',
-);
-
-export const outputsAtom = atom<string[]>([]);
+export const mediaUrlAtom = atom('');
+export const mediaMetadataAtom = atom<MediaMetadata | null>(null);
