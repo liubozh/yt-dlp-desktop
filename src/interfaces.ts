@@ -9,7 +9,7 @@ export interface MediaMetadata {
 }
 
 export interface IDownloadAPI {
-  loadMediaMetadata(options: string[]): Promise<MediaMetadata>;
+  searchMedia(options: string[]): Promise<MediaMetadata>;
   download(options: string[]): Promise<void>;
   cancelDownload(): void;
   onDownloadOutput(callback: (output: string) => void): void;

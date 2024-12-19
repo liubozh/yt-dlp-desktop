@@ -5,8 +5,8 @@ import { contextBridge, ipcRenderer } from 'electron';
 import { IpcEvents } from '../ipc-events';
 
 contextBridge.exposeInMainWorld('downloadAPI', {
-  async loadMediaMetadata(options: string[]) {
-    return ipcRenderer.invoke(IpcEvents.LOAD_MEDIA_METADATA, options);
+  async searchMedia(options: string[]) {
+    return ipcRenderer.invoke(IpcEvents.SEARCH_MEDIA, options);
   },
 
   async download(options: string[]) {

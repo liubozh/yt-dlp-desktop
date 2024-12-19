@@ -26,8 +26,10 @@ if (require('electron-squirrel-startup')) {
 const createWindow = (): void => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    height: 600,
-    width: 800,
+    height: 800,
+    width: 1200,
+    minHeight: 600,
+    minWidth: 800,
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
@@ -45,7 +47,7 @@ const createWindow = (): void => {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   ipcMain.handle(
-    IpcEvents.LOAD_MEDIA_METADATA,
+    IpcEvents.SEARCH_MEDIA,
     async (event: IpcMainEvent, options: string[]): Promise<MediaMetadata> => {
       return new Promise((resolve, reject) => {
         const child = spawn('yt-dlp', options);
