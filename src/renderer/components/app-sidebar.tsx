@@ -1,31 +1,51 @@
-import * as React from 'react';
+import { MonitorDown } from 'lucide-react';
 
+import NavMain from './nav-main';
+import { SidebarOptInForm } from './sidebar-opt-in-form';
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarHeader,
-  SidebarSeparator,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarRail,
 } from './ui/sidebar';
-import SearchForm from './search-form';
-import Options from './options';
+import NavSecondary from './nav-secondary';
 
-import MetadataCard from './metadata-card';
-
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export default function AppSidebar({
+  ...props
+}: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar
-      collapsible="none"
-      className="sticky hidden lg:flex top-0 h-svh border-l"
-      {...props}
-    >
-      <SidebarHeader className="h-16 border-b border-sidebar-border">
-        <SearchForm />
+    <Sidebar {...props}>
+      <SidebarHeader>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton size="lg" asChild>
+              <a href="#">
+                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+                  <MonitorDown className="size-4" />
+                </div>
+                <div className="flex flex-col gap-0.5 leading-none">
+                  <span className="font-semibold">Documentation</span>
+                  {/* <span className="">v1.0.0</span> */}
+                </div>
+              </a>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <Options />
-        <SidebarSeparator className="mx-0" />
-        <MetadataCard />
+        <NavMain />
+        <NavSecondary className="mt-auto" />
       </SidebarContent>
+      <SidebarFooter>
+        <div className="p-1">
+          <SidebarOptInForm />
+        </div>
+      </SidebarFooter>
+      <SidebarRail />
     </Sidebar>
   );
 }
