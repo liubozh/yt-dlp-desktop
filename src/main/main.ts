@@ -79,6 +79,7 @@ app.whenReady().then(() => {
                   description: json.description,
                   originalUrl: json.original_url,
                   duration: json.duration,
+                  durationString: json.duration_string,
                 };
                 resolve(metadata);
                 break;

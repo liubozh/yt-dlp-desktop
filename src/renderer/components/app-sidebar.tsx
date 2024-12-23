@@ -1,7 +1,6 @@
 import { MonitorDown } from 'lucide-react';
 
 import NavMain from './nav-main';
-import { SidebarOptInForm } from './sidebar-opt-in-form';
 import {
   Sidebar,
   SidebarContent,
@@ -18,7 +17,7 @@ export default function AppSidebar({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar {...props}>
+    <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -40,11 +39,7 @@ export default function AppSidebar({
         <NavMain />
         <NavSecondary className="mt-auto" />
       </SidebarContent>
-      <SidebarFooter>
-        <div className="p-1">
-          <SidebarOptInForm />
-        </div>
-      </SidebarFooter>
+      <SidebarFooter></SidebarFooter>
       <SidebarRail />
     </Sidebar>
   );

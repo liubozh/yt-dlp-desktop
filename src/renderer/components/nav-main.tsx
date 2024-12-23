@@ -1,4 +1,4 @@
-import { Download, Search, Sparkles } from 'lucide-react';
+import { Download, Sparkles } from 'lucide-react';
 
 import {
   SidebarGroup,
@@ -13,16 +13,8 @@ export default function NavMain() {
     <SidebarGroup>
       <SidebarGroupContent>
         <SidebarMenu>
-          <SidebarMenuItem key={'Search'}>
-            <SidebarMenuButton asChild isActive={true}>
-              <a href={'#'}>
-                <Search />
-                <span>Search</span>
-              </a>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
           <SidebarMenuItem key={'Downloads'}>
-            <SidebarMenuButton asChild>
+            <SidebarMenuButton asChild isActive={true}>
               <a href={'#'}>
                 <Download />
                 <span>Downloads</span>

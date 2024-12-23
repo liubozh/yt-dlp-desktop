@@ -6,6 +6,7 @@ export interface MediaMetadata {
   description: string;
   originalUrl: string;
   duration: number;
+  durationString: string;
 }
 
 export interface IDownloadAPI {
