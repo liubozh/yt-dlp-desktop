@@ -1,16 +1,16 @@
-import AppSidebar from './components/app-sidebar';
-import { ThemeProvider } from './components/theme-provider';
+import AppSidebar from './components/app-sidebar'
+import MediaMetadata from './components/media-metadata'
 
-import { Separator } from './components/ui/separator';
+import SearchInput from './components/search-input'
+import { SettingsDialog } from './components/settings-dialog'
+import { ThemeProvider } from './components/theme-provider'
+
+import { Separator } from './components/ui/separator'
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from './components/ui/sidebar';
-import { SettingsDialog } from './components/settings-dialog';
-
-import SearchInput from './components/search-input';
-import MediaMetadata from './components/media-metadata';
+} from './components/ui/sidebar'
 
 export default function App() {
   return (
@@ -36,5 +36,5 @@ export default function App() {
         </SidebarInset>
       </SidebarProvider>
     </ThemeProvider>
-  );
+  )
 }

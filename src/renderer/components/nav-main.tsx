@@ -1,4 +1,4 @@
-import { Download, Sparkles } from 'lucide-react';
+import { Download, Sparkles } from 'lucide-react'
 
 import {
   SidebarGroup,
@@ -6,24 +6,24 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from './ui/sidebar';
+} from './ui/sidebar'
 
 export default function NavMain() {
   return (
     <SidebarGroup>
       <SidebarGroupContent>
         <SidebarMenu>
-          <SidebarMenuItem key={'Downloads'}>
+          <SidebarMenuItem key="Downloads">
             <SidebarMenuButton asChild isActive={true}>
-              <a href={'#'}>
+              <a href="#">
                 <Download />
                 <span>Downloads</span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
-          <SidebarMenuItem key={'Ask AI'}>
+          <SidebarMenuItem key="Ask AI">
             <SidebarMenuButton asChild>
-              <a href={'#'}>
+              <a href="#">
                 <Sparkles />
                 <span>Ask AI</span>
               </a>
@@ -32,5 +32,5 @@ export default function NavMain() {
         </SidebarMenu>
       </SidebarGroupContent>
     </SidebarGroup>
-  );
+  )
 }

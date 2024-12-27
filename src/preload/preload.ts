@@ -1,39 +1,39 @@
 // See the Electron documentation for details on how to use preload scripts:
 // https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts
 
-import { contextBridge, ipcRenderer } from 'electron';
-import { IpcEvents } from '../ipc-events';
+import { contextBridge, ipcRenderer } from 'electron'
+import { IpcEvents } from '../ipc-events'
 
 contextBridge.exposeInMainWorld('downloadAPI', {
   async searchMedia(options: string[]) {
-    return ipcRenderer.invoke(IpcEvents.SEARCH_MEDIA, options);
+    return ipcRenderer.invoke(IpcEvents.SEARCH_MEDIA, options)
   },
 
   async download(options: string[]) {
-    await ipcRenderer.invoke(IpcEvents.DOWNLOAD, options);
+    await ipcRenderer.invoke(IpcEvents.DOWNLOAD, options)
   },
 
   cancelDownload() {
-    ipcRenderer.send(IpcEvents.CANCEL_DOWNLOAD);
+    ipcRenderer.send(IpcEvents.CANCEL_DOWNLOAD)
   },
 
   onDownloadOutput(callback: (output: string) => void) {
-    ipcRenderer.removeAllListeners(IpcEvents.DOWNLOAD_OUTPUT);
+    ipcRenderer.removeAllListeners(IpcEvents.DOWNLOAD_OUTPUT)
     ipcRenderer.on(IpcEvents.DOWNLOAD_OUTPUT, (_, output: string) => {
-      callback(output);
-    });
+      callback(output)
+    })
   },
 
   onDownloadStopped(
-    callback: (data: { code: number | null; signal: string | null }) => void,
+    callback: (data: { code: number | null, signal: string | null }) => void,
   ) {
-    ipcRenderer.removeAllListeners(IpcEvents.DOWNLOAD_STOPPED);
+    ipcRenderer.removeAllListeners(IpcEvents.DOWNLOAD_STOPPED)
     ipcRenderer.on(
       IpcEvents.DOWNLOAD_STOPPED,
-      (_, data: { code: number | null; signal: string | null }) => {
-        callback(data);
+      (_, data: { code: number | null, signal: string | null }) => {
+        callback(data)
       },
-    );
+    )
   },
   // async download(url: string) {
   //   await ipcRenderer.invoke(IpcEvents.DOWNLOAD, url);
@@ -50,4 +50,4 @@ contextBridge.exposeInMainWorld('downloadAPI', {
   //   ipcRenderer.removeAllListeners(IpcEvents.DOWNLOAD_STOPPED);
   //   ipcRenderer.on(IpcEvents.DOWNLOAD_STOPPED, callback);
   // },
-});
+})

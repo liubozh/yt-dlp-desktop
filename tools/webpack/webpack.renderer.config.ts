@@ -1,7 +1,7 @@
-import type { Configuration } from 'webpack';
+import type { Configuration } from 'webpack'
 
-import { rules } from './common/webpack.rules';
-import { plugins } from './common/webpack.plugins';
+import { plugins } from './common/webpack.plugins'
+import { rules } from './common/webpack.rules'
 
 rules.push({
   test: /\.css$/,
@@ -10,7 +10,7 @@ rules.push({
     { loader: 'css-loader' },
     { loader: 'postcss-loader' },
   ],
-});
+})
 
 export const rendererConfig: Configuration = {
   module: {
@@ -20,4 +20,4 @@ export const rendererConfig: Configuration = {
   resolve: {
     extensions: ['.js', '.ts', '.jsx', '.tsx', '.css'],
   },
-};
+}

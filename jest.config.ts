@@ -1,4 +1,4 @@
-import type { Config } from '@jest/types';
+import type { Config } from '@jest/types'
 
 const config: Config.InitialOptions = {
   preset: 'ts-jest',
@@ -13,6 +13,6 @@ const config: Config.InitialOptions = {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
     '\\.(gif|ttf|eot|svg|png)$': '<rootDir>/test/__mocks__/fileMock.ts',
   },
-};
+}
 
-export default config;
+export default config

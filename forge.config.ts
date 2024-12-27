@@ -1,15 +1,15 @@
-import type { ForgeConfig } from '@electron-forge/shared-types';
-import { MakerSquirrel } from '@electron-forge/maker-squirrel';
-import { MakerZIP } from '@electron-forge/maker-zip';
-import { MakerDeb } from '@electron-forge/maker-deb';
-import { MakerRpm } from '@electron-forge/maker-rpm';
-import { AutoUnpackNativesPlugin } from '@electron-forge/plugin-auto-unpack-natives';
-import { WebpackPlugin } from '@electron-forge/plugin-webpack';
-import { FusesPlugin } from '@electron-forge/plugin-fuses';
-import { FuseV1Options, FuseVersion } from '@electron/fuses';
+import type { ForgeConfig } from '@electron-forge/shared-types'
+import { MakerDeb } from '@electron-forge/maker-deb'
+import { MakerRpm } from '@electron-forge/maker-rpm'
+import { MakerSquirrel } from '@electron-forge/maker-squirrel'
+import { MakerZIP } from '@electron-forge/maker-zip'
+import { AutoUnpackNativesPlugin } from '@electron-forge/plugin-auto-unpack-natives'
+import { FusesPlugin } from '@electron-forge/plugin-fuses'
+import { WebpackPlugin } from '@electron-forge/plugin-webpack'
+import { FuseV1Options, FuseVersion } from '@electron/fuses'
 
-import { mainConfig } from './tools/webpack/webpack.main.config';
-import { rendererConfig } from './tools/webpack/webpack.renderer.config';
+import { mainConfig } from './tools/webpack/webpack.main.config'
+import { rendererConfig } from './tools/webpack/webpack.renderer.config'
 
 const config: ForgeConfig = {
   packagerConfig: {
@@ -26,7 +26,7 @@ const config: ForgeConfig = {
     new AutoUnpackNativesPlugin({}),
     new WebpackPlugin({
       devContentSecurityPolicy:
-        "default-src 'self' 'unsafe-inline' data:; img-src 'self' https: data:; script-src 'self' 'unsafe-eval' 'unsafe-inline' data:",
+        'default-src \'self\' \'unsafe-inline\' data:; img-src \'self\' https: data:; script-src \'self\' \'unsafe-eval\' \'unsafe-inline\' data:',
       mainConfig,
       renderer: {
         config: rendererConfig,
@@ -54,6 +54,6 @@ const config: ForgeConfig = {
       [FuseV1Options.OnlyLoadAppFromAsar]: true,
     }),
   ],
-};
+}
 
-export default config;
+export default config

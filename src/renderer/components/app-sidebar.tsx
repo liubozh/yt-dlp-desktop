@@ -1,6 +1,7 @@
-import { MonitorDown } from 'lucide-react';
+import { MonitorDown } from 'lucide-react'
 
-import NavMain from './nav-main';
+import NavMain from './nav-main'
+import NavSecondary from './nav-secondary'
 import {
   Sidebar,
   SidebarContent,
@@ -10,8 +11,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
-} from './ui/sidebar';
-import NavSecondary from './nav-secondary';
+} from './ui/sidebar'
 
 export default function AppSidebar({
   ...props
@@ -42,5 +42,5 @@ export default function AppSidebar({
       <SidebarFooter></SidebarFooter>
       <SidebarRail />
     </Sidebar>
-  );
+  )
 }

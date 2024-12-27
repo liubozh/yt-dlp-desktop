@@ -1,3 +1,5 @@
+import { useAtom } from 'jotai'
+
 import {
   Bell,
   Globe,
@@ -7,8 +9,8 @@ import {
   Paintbrush,
   Settings,
   Video,
-} from 'lucide-react';
-
+} from 'lucide-react'
+import { isSettingsShowingAtom } from '../atoms'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -16,13 +18,13 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from './ui/breadcrumb';
+} from './ui/breadcrumb'
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogTitle,
-} from './ui/dialog';
+} from './ui/dialog'
 import {
   Sidebar,
   SidebarContent,
@@ -32,9 +34,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
-} from './ui/sidebar';
-import { useAtom } from 'jotai';
-import { isSettingsShowingAtom } from '../atoms';
+} from './ui/sidebar'
 
 const data = {
   nav: [
@@ -47,12 +47,12 @@ const data = {
     { name: 'Privacy & visibility', icon: Lock },
     { name: 'Advanced', icon: Settings },
   ],
-};
+}
 
 export function SettingsDialog() {
   const [isSettingsShowing, setIsSettingsShowing] = useAtom(
     isSettingsShowingAtom,
-  );
+  )
   return (
     <Dialog open={isSettingsShowing} onOpenChange={setIsSettingsShowing}>
       <DialogContent className="overflow-hidden p-0 md:max-h-[500px] md:max-w-[700px] lg:max-w-[800px]">
@@ -66,7 +66,7 @@ export function SettingsDialog() {
               <SidebarGroup>
                 <SidebarGroupContent>
                   <SidebarMenu>
-                    {data.nav.map((item) => (
+                    {data.nav.map(item => (
                       <SidebarMenuItem key={item.name}>
                         <SidebarMenuButton
                           asChild
@@ -112,5 +112,5 @@ export function SettingsDialog() {
         </SidebarProvider>
       </DialogContent>
     </Dialog>
-  );
+  )
 }

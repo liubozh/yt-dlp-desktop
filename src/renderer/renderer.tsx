@@ -26,19 +26,16 @@
  * ```
  */
 
-import { createRoot } from 'react-dom/client';
+import { createRoot } from 'react-dom/client'
 
-import '../index.css';
-import App from './app';
+import App from './app'
+import '../index.css'
 
-console.log(
-  '👋 This message is being logged by "renderer.js", included via webpack',
-);
-
-const container = document.getElementById('app');
+const container = document.getElementById('app')
 if (container) {
-  const root = createRoot(container);
-  root.render(<App />);
-} else {
-  console.error('Failed to find the app container element.');
+  const root = createRoot(container)
+  root.render(<App />)
+}
+else {
+  console.error('Failed to find the app container element.')
 }

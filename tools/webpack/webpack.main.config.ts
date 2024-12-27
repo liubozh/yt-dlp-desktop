@@ -1,7 +1,7 @@
-import type { Configuration } from 'webpack';
+import type { Configuration } from 'webpack'
 
-import { rules } from './common/webpack.rules';
-import { plugins } from './common/webpack.plugins';
+import { plugins } from './common/webpack.plugins'
+import { rules } from './common/webpack.rules'
 
 export const mainConfig: Configuration = {
   /**
@@ -17,4 +17,4 @@ export const mainConfig: Configuration = {
   resolve: {
     extensions: ['.js', '.ts', '.jsx', '.tsx', '.css', '.json'],
   },
-};
+}

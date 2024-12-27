@@ -1,34 +1,34 @@
-import { Send, Settings } from 'lucide-react';
+import { useSetAtom } from 'jotai'
 
+import { Send, Settings } from 'lucide-react'
+import { isSettingsShowingAtom } from '../atoms'
 import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from './ui/sidebar';
-import { useSetAtom } from 'jotai';
-import { isSettingsShowingAtom } from '../atoms';
+} from './ui/sidebar'
 
 export default function NavSecondary({
   ...props
 }: React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
-  const setIsSettingsShowing = useSetAtom(isSettingsShowingAtom);
+  const setIsSettingsShowing = useSetAtom(isSettingsShowingAtom)
   return (
     <SidebarGroup {...props}>
       <SidebarGroupContent>
         <SidebarMenu>
-          <SidebarMenuItem key={'Feedback'}>
+          <SidebarMenuItem key="Feedback">
             <SidebarMenuButton asChild size="sm">
-              <a href={'#'}>
+              <a href="#">
                 <Send />
                 <span>Feedback</span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
-          <SidebarMenuItem key={'Settings'}>
+          <SidebarMenuItem key="Settings">
             <SidebarMenuButton asChild size="sm">
-              <a href={'#'} onClick={() => setIsSettingsShowing(true)}>
+              <a href="#" onClick={() => setIsSettingsShowing(true)}>
                 <Settings />
                 <span>Settings</span>
               </a>
@@ -37,5 +37,5 @@ export default function NavSecondary({
         </SidebarMenu>
       </SidebarGroupContent>
     </SidebarGroup>
-  );
+  )
 }
