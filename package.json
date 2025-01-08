@@ -57,7 +57,7 @@
     "cmdk": "1.0.4",
     "date-fns": "^4.1.0",
     "electron-squirrel-startup": "^1.0.1",
-    "embla-carousel-react": "^8.5.1",
+    "embla-carousel-react": "^8.5.2",
     "input-otp": "^1.4.2",
     "jotai": "^2.11.0",
     "lucide-react": "^0.469.0",
