@@ -108,7 +108,7 @@
     "ts-jest": "^29.2.5",
     "ts-loader": "^9.2.2",
     "ts-node": "^10.0.0",
-    "typescript": "~5.7.2"
+    "typescript": "~5.7.3"
   },
   "lint-staged": {
     "**/*": "eslint . --fix"
